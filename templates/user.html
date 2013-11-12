@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+    <div class="content">
+
+        <div id="userinfo">
+        <p> This is {{ page_owner }} page!</p>
+        </div>
+
+        <div id="posts">
+            {% for e in message %}
+                <p>{{ e.author }} - {{ e.date }}</p>
+                <p>title: {{ e.title }}</p>
+                <p>text: {{ e.text }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

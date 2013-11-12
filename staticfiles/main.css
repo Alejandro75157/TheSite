@@ -1,0 +1,91 @@
+body {
+    background-color: #7CA0C7;
+}
+
+a {
+    color: #003366;
+    text-decoration: none;
+}
+
+div {
+    margin-top: 8px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 8px;
+}
+
+.page-header {
+    height: 120px;
+    background-color: #f8f8f8;
+    padding: 50px;
+}
+
+#site_name_block {
+    text-align: left;
+    /*background-color: #bbbbbb;*/
+}
+
+.site_name {
+    font-size: 72px;
+    margin: 0;
+}
+
+#menu {
+    margin-top: -10px;
+    margin-left: 27px;
+    width: 250px;
+    height: 20px;
+    /*background-color: #bbbbbb;*/
+}
+
+.content {
+    height: 400px;
+}
+
+.inner_content {
+    height: 400px;
+    background-color: #f8f8f8;
+}
+
+.inner_content p {
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+#userinfo {
+    height: 100%;
+    width: 30%;
+    float: left;
+    background-color: #f8f8f8;
+    margin-right: 8px;
+}
+
+#userinfo p {
+    padding-left: 10px;
+}
+
+#posts {
+    padding: 10px;
+    width: 902px;
+    /*height: 100%;*/
+    background-color: #f8f8f8;
+    float: left;
+
+}
+
+#posts form {
+    display: inline-block;
+}
+
+#posts form p {
+    margin: 0;
+}
+#posts form input {
+    margin: 0;
+}
+
+#footer {
+    clear: both;
+    height: 100px;
+    background-color: #f8f8f8;
+}
