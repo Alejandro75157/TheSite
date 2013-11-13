@@ -11,9 +11,9 @@
 
         <div id="posts">
             {% for e in message %}
-                <p>{{ e.author }} - {{ e.date }}</p>
-                <p>title: {{ e.title }}</p>
-                <p>text: {{ e.text }}</p>
+                <p><strong>{{ e.title }}</strong></p>
+                <p>{{ e.text }}</p>
+                <p class="authdate">{{ e.author }} - {{ e.date }}</p>
                 <hr>
             {% endfor %}
         </div>
