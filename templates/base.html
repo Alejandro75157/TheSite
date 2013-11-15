@@ -18,6 +18,13 @@
                 <a href="/accounts/login/">login</a> | <a href="/register/">register</a></p>
                 {% endif %}
         </div>
+        <div class="search">
+            <form action="/search/" method="GET">
+                {% csrf_token %}
+                <input type="text" name="q">
+                <input type="submit" value="User Search">
+            </form>
+        </div>
     </header>
     {% block content %}
 
