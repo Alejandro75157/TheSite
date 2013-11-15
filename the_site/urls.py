@@ -15,5 +15,4 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'app.views.login'),
     url(r'^register/$', 'app.views.register'),
     url(r'^logout/$', 'app.views.logout'),
-    url(r'^search/$', 'app.views.search')
 )

@@ -19,9 +19,9 @@
             </form>
 
             {% for e in message %}
-                <p><strong>{{ e.title }}</strong></p>
-                <p>{{ e.text }}</p>
-                <p class="authdate">{{ e.author }} - {{ e.date }}</p>
+                <p>{{ e.author }} - {{ e.date }}</p>
+                <p>title: {{ e.title }}</p>
+                <p>text: {{ e.text }}</p>
                 <hr>
             {% endfor %}
         </div>

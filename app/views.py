@@ -36,9 +36,9 @@ def userpage(request, user_id):
     current_user_id = request.session['member_id']
     current_user = User.objects.get(id=current_user_id)
     page_owner = User.objects.get(id=user_id)
-    message = Message.objects.filter(author=page_owner).order_by('-id')
+    message = Message.objects.filter(author=page_owner)
     if current_user_id == user_id:
-        message = Message.objects.filter(author=current_user).order_by('-id')
+        message = Message.objects.filter(author=current_user)
         mesform = MessageForm()
         return render(request, 'userpage.html', {'mesform': mesform, 'message': message, 'page_owner': page_owner, 'cur_user_id': current_user_id}, )
     else:
@@ -59,6 +59,8 @@ def login(request):
 
 
 def register(request):
+    cur_user_id = request.session['member_id']
+    cur_user_id = int(cur_user_id)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -66,7 +68,7 @@ def register(request):
             return HttpResponseRedirect("/")
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html', {'form': form, 'cur_user_id': cur_user_id})
 
 
 def logout(request):
@@ -76,12 +78,3 @@ def logout(request):
     except KeyError:
         pass
     return HttpResponseRedirect("/")
-
-def search(request):
-    cur_user_id = request.session['member_id']
-    cur_user_id = int(cur_user_id)
-    if 'q' in request.GET:
-        q = request.GET['q']
-        srch_user = User.objects.filter(username__icontains=q)
-        return render(request, 'search.html', {'srch_user': srch_user, 'query': q, 'cur_user_id': cur_user_id})
-    return render(request, 'search.html', {'cur_user_id': cur_user_id})
