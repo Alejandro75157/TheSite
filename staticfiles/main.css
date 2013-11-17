@@ -30,6 +30,10 @@ div {
     margin: 0;
 }
 
+.site_name a {
+    color: #222222;
+}
+
 #menu {
     margin-top: -10px;
     margin-left: 27px;

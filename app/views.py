@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from app.forms import MessageForm
-from app.models import Message
+from app.models import Message, Person, Relationship
 import datetime
 
 
@@ -37,12 +37,31 @@ def userpage(request, user_id):
     current_user = User.objects.get(id=current_user_id)
     page_owner = User.objects.get(id=user_id)
     message = Message.objects.filter(author=page_owner).order_by('-id')
+
+    owner_person = Person.objects.get(user=page_owner)
+    current_person = Person.objects.get(user=current_user)
+
+    subscribings_user = Person.get_following(current_person)
+    subscribers_user = Person.get_followers(current_person)
+    subscribings_owner = Person.get_following(owner_person)
+    subscribers_owner = Person.get_followers(owner_person)
+
     if current_user_id == user_id:
         message = Message.objects.filter(author=current_user).order_by('-id')
         mesform = MessageForm()
-        return render(request, 'userpage.html', {'mesform': mesform, 'message': message, 'page_owner': page_owner, 'cur_user_id': current_user_id}, )
+        return render(request, 'userpage.html', {'mesform': mesform,
+                                                 'message': message,
+                                                 'page_owner': page_owner,
+                                                 'cur_user_id': current_user_id,
+                                                 'subscribings_user': subscribings_user,
+                                                 'subscribers_user': subscribers_user}, )
     else:
-        return render(request, 'user.html', {'message': message, 'page_owner': page_owner, 'cur_user_id': current_user_id}, )
+        return render(request, 'user.html', {'message': message,
+                                             'page_owner': page_owner,
+                                             'cur_user_id': current_user_id,
+                                             'subscribings_owner': subscribings_owner,
+                                             'subscribers_owner': subscribers_owner,
+                                             'subscribings_user': subscribings_user,}, )
 
 
 def login(request):
@@ -62,7 +81,9 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_user = form.save()
+            new_person = Person(user=new_user, name=new_user.username)
+            new_person.save()
             return HttpResponseRedirect("/")
     else:
         form = UserCreationForm()
@@ -85,3 +106,27 @@ def search(request):
         srch_user = User.objects.filter(username__icontains=q)
         return render(request, 'search.html', {'srch_user': srch_user, 'query': q, 'cur_user_id': cur_user_id})
     return render(request, 'search.html', {'cur_user_id': cur_user_id})
+
+def add_relationships(request, user_id):
+    current_user_id = request.session['member_id']
+    current_user = User.objects.get(id=current_user_id)
+    page_owner = User.objects.get(id=user_id)
+
+    owner_person = Person.objects.get(user=page_owner)
+    current_person = Person.objects.get(user=current_user)
+
+    Person.add_relationship(current_person, owner_person, 1)
+
+    return HttpResponseRedirect ("/")
+
+def remove_relationships(request, user_id):
+    current_user_id = request.session['member_id']
+    current_user = User.objects.get(id=current_user_id)
+    page_owner = User.objects.get(id=user_id)
+
+    owner_person = Person.objects.get(user=page_owner)
+    current_person = Person.objects.get(user=current_user)
+
+    Person.remowe_relationship(current_person, owner_person, 1)
+
+    return HttpResponseRedirect ("/")

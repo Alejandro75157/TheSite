@@ -7,6 +7,31 @@
 
         <div id="userinfo">
         <p> This is {{ page_owner }} page!</p>
+
+        {% if not subscribings_user %}
+            <p><a href="/add_relationships/{{ page_owner.id }}/">Subscribe</a></p>
+        {% endif %}
+
+        {% for subscribings in subscribings_user %}
+            {% if page_owner.id == subscribings.user.id %}
+                <p><a href="/remove_relationships/{{ page_owner.id }}/">Unsubscribe</a></p>
+            {% else %}
+                <p><a href="/add_relationships/{{ page_owner.id }}/">Subscribe</a></p>
+            {% endif %}
+        {% endfor %}
+
+        <hr>
+        <p>Subscribes:</p>
+            {% for subscribings in subscribings_owner %}
+                <p><a href="/accounts/profile/{{ subscribings.user.id }}/">{{ subscribings.name }}</a></p>
+            {% endfor %}
+        <p>Subscribers:</p>
+            {% for subscribers in subscribers_owner %}
+                <p><a href="/accounts/profile/{{ subscribers.user.id }}/">{{ subscribers.name }}</a></p>
+            {% endfor %}
+
+
+
         </div>
 
         <div id="posts">

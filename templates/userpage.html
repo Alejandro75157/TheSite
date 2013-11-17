@@ -7,6 +7,16 @@
 
         <div id="userinfo">
         <p> Hello {{ user.username }}!</p>
+        <hr>
+        <p>Subscribes:</p>
+            {% for subscribings in subscribings_user %}
+                <p><a href="/accounts/profile/{{ subscribings.user.id }}/">{{ subscribings.name }}</a></p>
+            {% endfor %}
+        <p>Subscribers:</p>
+            {% for subscribers in subscribers_user %}
+                <p><a href="/accounts/profile/{{ subscribers.user.id }}/">{{ subscribers.name }}</a></p>
+            {% endfor %}
+
         </div>
 
         <div id="posts">
