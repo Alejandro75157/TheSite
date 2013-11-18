@@ -46,22 +46,41 @@ def userpage(request, user_id):
     subscribings_owner = Person.get_following(owner_person)
     subscribers_owner = Person.get_followers(owner_person)
 
+    condition=False
+    i=0
+    for subscribings in subscribings_user:
+        if page_owner.id != subscribings.user.id:
+            i += 1
+
+    if i == len(subscribings_user):
+        condition=True
+
+    last_message=datetime.datetime.now()
+    for one in message:
+        last_message=one.date
+
     if current_user_id == user_id:
         message = Message.objects.filter(author=current_user).order_by('-id')
         mesform = MessageForm()
+        last_message=datetime.datetime.now()
+        for one in message:
+            last_message=one.date
         return render(request, 'userpage.html', {'mesform': mesform,
                                                  'message': message,
                                                  'page_owner': page_owner,
                                                  'cur_user_id': current_user_id,
                                                  'subscribings_user': subscribings_user,
-                                                 'subscribers_user': subscribers_user}, )
+                                                 'subscribers_user': subscribers_user,
+                                                 'last_message': last_message}, )
     else:
         return render(request, 'user.html', {'message': message,
                                              'page_owner': page_owner,
                                              'cur_user_id': current_user_id,
                                              'subscribings_owner': subscribings_owner,
                                              'subscribers_owner': subscribers_owner,
-                                             'subscribings_user': subscribings_user,}, )
+                                             'subscribings_user': subscribings_user,
+                                             'condition': condition,
+                                             'last_message': last_message}, )
 
 
 def login(request):
@@ -117,7 +136,7 @@ def add_relationships(request, user_id):
 
     Person.add_relationship(current_person, owner_person, 1)
 
-    return HttpResponseRedirect ("/")
+    return HttpResponseRedirect ("/accounts/profile/"+user_id)
 
 def remove_relationships(request, user_id):
     current_user_id = request.session['member_id']
@@ -129,4 +148,10 @@ def remove_relationships(request, user_id):
 
     Person.remowe_relationship(current_person, owner_person, 1)
 
-    return HttpResponseRedirect ("/")
+    return HttpResponseRedirect ("/accounts/profile/"+user_id)
+
+def delete_message(request, user_id, message_id):
+    current_user_id = request.session['member_id']
+    current_user = User.objects.get(id=current_user_id)
+    Message.objects.filter(author=current_user).get(id=message_id).delete()
+    return HttpResponseRedirect ("/accounts/profile/"+user_id)

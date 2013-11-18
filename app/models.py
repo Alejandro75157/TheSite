@@ -10,6 +10,7 @@ class Message(models.Model):
     text = models.TextField()
 
 
+
 class Person(models.Model):
     name = models.CharField(max_length=100)
     user = models.OneToOneField(auth_models.User, blank=True, null=True)

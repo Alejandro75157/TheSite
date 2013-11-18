@@ -5,35 +5,47 @@
 {% block content %}
     <div class="content">
 
-        <div id="userinfo">
-        <p> Hello {{ user.username }}!</p>
-        <hr>
+        <div class="userinfo">
+        <h2> {{ user.username }} </h2>
+
+        {% if subscribings_user %}
         <p>Subscribes:</p>
+        {% endif %}
+            <ul>
             {% for subscribings in subscribings_user %}
-                <p><a href="/accounts/profile/{{ subscribings.user.id }}/">{{ subscribings.name }}</a></p>
+                <li><a href="/accounts/profile/{{ subscribings.user.id }}/">{{ subscribings.name }}</a></li>
             {% endfor %}
+            </ul>
+        {% if subscribers_user %}
         <p>Subscribers:</p>
+        {% endif %}
+            <ul>
             {% for subscribers in subscribers_user %}
-                <p><a href="/accounts/profile/{{ subscribers.user.id }}/">{{ subscribers.name }}</a></p>
+                <li><a href="/accounts/profile/{{ subscribers.user.id }}/">{{ subscribers.name }}</a></li>
             {% endfor %}
+            </ul>
 
         </div>
 
-        <div id="posts">
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ mesform.as_p }}
+        <div class="posts">
+            <div class="post">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ mesform.as_p }}
 
-                <input type="submit" value="Update">
+                    <input class="submit" type="submit" value="Publish">
 
-            </form>
+                </form>
 
-            {% for e in message %}
-                <p><strong>{{ e.title }}</strong></p>
-                <p>{{ e.text }}</p>
-                <p class="authdate">{{ e.author }} - {{ e.date }}</p>
-                <hr>
-            {% endfor %}
+                {% for e in message %}
+                    <p><strong>{{ e.title }} <a href="/delete_message/{{ cur_user_id }}/{{ e.id }}/">(delete)</a></strong></p>
+                    <p>{{ e.text }}</p>
+                    <p class="authdate">{{ e.author }} - {{ e.date }}</p>
+                    {% if e.date != last_message %}
+                    <p>* * *</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 

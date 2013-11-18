@@ -5,7 +5,7 @@
 {% block content %}
 
         <div class="content">
-            <div class="inner_content"><p>This is login page</p>
+            <div class="inner_content">
                 {% if form.errors %}
                     <p>Your username and password didn't match. Please try again.</p>
                 {% endif %}
@@ -13,14 +13,14 @@
                 <form method="post" action="{% url 'app.views.login' %}">
                     {% csrf_token %}
                     <p>
-                    <label for="username">Имя пользователя:</label>
+                    <label for="username">Username:</label>
                     <input type="text" name="username" value="" id="username">
                     </p>
                     <p>
-                    <label for="password">Пароль:</label>
+                    <label for="password">Password:</label>
                     <input type="password" name="password" value="" id="upassword">
                     </p>
-                    <input type="submit" value="login"/>
+                    <input class="submit" type="submit" value="login"/>
                     <input type="hidden" name="text" value="{{ next|escape }}"/>
                 </form>
             </div>

@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^search/$', 'app.views.search'),
     url(r'^add_relationships/(\d+)/$', 'app.views.add_relationships'),
     url(r'^remove_relationships/(\d+)/$', 'app.views.remove_relationships'),
+    url(r'^delete_message/(\d+)/(\d+)/$', 'app.views.delete_message'),
 )
