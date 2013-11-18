@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'the_site.wsgi.application'
 import dj_database_url
 DATABASES = {
     'default': {
-        'ENGINE': dj_database_url.config(),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'thesitedb',
     }
 }
