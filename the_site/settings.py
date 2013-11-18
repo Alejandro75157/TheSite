@@ -59,7 +59,7 @@ WSGI_APPLICATION = 'the_site.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES = {'default': dj_database_url.config(default='postgres://dev:dev@localhost/the_site')}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
