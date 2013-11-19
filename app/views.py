@@ -155,3 +155,17 @@ def delete_message(request, user_id, message_id):
     current_user = User.objects.get(id=current_user_id)
     Message.objects.filter(author=current_user).get(id=message_id).delete()
     return HttpResponseRedirect ("/accounts/profile/"+user_id)
+
+def delete_profile(request):
+    current_user_id = request.session['member_id']
+    current_user = User.objects.get(id=current_user_id)
+
+    current_person = Person.objects.get(user=current_user)
+
+    current_person.delete()
+    current_user.delete()
+    try:
+        del request.session['member_id']
+    except KeyError:
+        pass
+    return HttpResponseRedirect ("/")
