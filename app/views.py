@@ -10,17 +10,20 @@ import datetime
 
 
 def home(request):
+    tag_user = User.objects.all()
     if ('member_id' in request.session):
        cur_user_id = request.session['member_id']
        cur_user_id = int(cur_user_id)
-       return render(request, 'base.html', {'cur_user_id': cur_user_id})
+       return render(request, 'base.html', {'cur_user_id': cur_user_id,
+                                            'tag_user': tag_user})
     else:
-       return render(request, 'base.html')
+       return render(request, 'base.html', {'tag_user': tag_user})
 
 
 
 @login_required(redirect_field_name='/accounts/login')
 def userpage(request, user_id):
+    tag_user = User.objects.all()
     if request.method == "POST":
         income_title = request.POST['title']
         income_text = request.POST['text']
@@ -71,7 +74,8 @@ def userpage(request, user_id):
                                                  'cur_user_id': current_user_id,
                                                  'subscribings_user': subscribings_user,
                                                  'subscribers_user': subscribers_user,
-                                                 'last_message': last_message}, )
+                                                 'last_message': last_message,
+                                                 'tag_user': tag_user}, )
     else:
         return render(request, 'user.html', {'message': message,
                                              'page_owner': page_owner,
@@ -80,7 +84,8 @@ def userpage(request, user_id):
                                              'subscribers_owner': subscribers_owner,
                                              'subscribings_user': subscribings_user,
                                              'condition': condition,
-                                             'last_message': last_message}, )
+                                             'last_message': last_message,
+                                             'tag_user': tag_user}, )
 
 
 def login(request):
@@ -118,13 +123,18 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 def search(request):
+    tag_user = User.objects.all()
     cur_user_id = request.session['member_id']
     cur_user_id = int(cur_user_id)
     if 'q' in request.GET:
         q = request.GET['q']
         srch_user = User.objects.filter(username__icontains=q)
-        return render(request, 'search.html', {'srch_user': srch_user, 'query': q, 'cur_user_id': cur_user_id})
-    return render(request, 'search.html', {'cur_user_id': cur_user_id})
+        return render(request, 'search.html', {'srch_user': srch_user,
+                                               'query': q,
+                                               'cur_user_id': cur_user_id,
+                                               'tag_user': tag_user})
+    return render(request, 'search.html', {'cur_user_id': cur_user_id,
+                                           'tag_user': tag_user})
 
 def add_relationships(request, user_id):
     current_user_id = request.session['member_id']
