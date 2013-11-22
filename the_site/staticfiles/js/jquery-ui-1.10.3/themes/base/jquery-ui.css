@@ -115,7 +115,7 @@
 }
 
 .ui-autocomplete {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	cursor: default;
@@ -471,7 +471,7 @@ button.ui-button::-moz-focus-inner {
 	padding: 0;
 	width: 100%;
 	/* support: IE10, see #8844 */
-	list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+	/*list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);*/
 }
 .ui-menu .ui-menu-divider {
 	margin: 5px -2px 5px -2px;
@@ -549,7 +549,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-resizable-handle {
 	position: absolute;
-	font-size: 0.1px;
+	font-size: 1px;
 	display: block;
 }
 .ui-resizable-disabled .ui-resizable-handle,
@@ -798,7 +798,7 @@ body .ui-tooltip {
 ----------------------------------*/
 .ui-widget {
 	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
-	font-size: 1.1em/*{fsDefault}*/;
+	font-size: 14px/*{fsDefault}*/;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -850,8 +850,7 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #999999/*{borderColorHover}*/;
-	background: #dadada/*{bgColorHover}*/ url(images/ui-bg_glass_75_dadada_1x400.png)/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/;
+	background: #FCF6D8;
 	font-weight: normal/*{fwDefault}*/;
 	color: #212121/*{fcHover}*/;
 }
@@ -1147,30 +1146,7 @@ body .ui-tooltip {
 ----------------------------------*/
 
 /* Corner radius */
-.ui-corner-all,
-.ui-corner-top,
-.ui-corner-left,
-.ui-corner-tl {
-	border-top-left-radius: 4px/*{cornerRadius}*/;
-}
-.ui-corner-all,
-.ui-corner-top,
-.ui-corner-right,
-.ui-corner-tr {
-	border-top-right-radius: 4px/*{cornerRadius}*/;
-}
-.ui-corner-all,
-.ui-corner-bottom,
-.ui-corner-left,
-.ui-corner-bl {
-	border-bottom-left-radius: 4px/*{cornerRadius}*/;
-}
-.ui-corner-all,
-.ui-corner-bottom,
-.ui-corner-right,
-.ui-corner-br {
-	border-bottom-right-radius: 4px/*{cornerRadius}*/;
-}
+
 
 /* Overlays */
 .ui-widget-overlay {
