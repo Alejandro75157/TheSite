@@ -108,7 +108,7 @@ def register(request):
             new_user = form.save()
             new_person = Person(user=new_user, name=new_user.username)
             new_person.save()
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect("/accounts/login/")
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -123,11 +123,19 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 def search(request):
+    absolute_srch_user = ""
+    absolute_srch_user_id = 0
     tag_user = User.objects.all()
     cur_user_id = request.session['member_id']
     cur_user_id = int(cur_user_id)
     if 'q' in request.GET:
         q = request.GET['q']
+        absolute_srch_user = User.objects.filter(username=q)
+        for the_user in absolute_srch_user:
+            absolute_srch_user_id = the_user.id
+        absolute_srch_user_id = str(absolute_srch_user_id)
+        if absolute_srch_user_id > 0:
+            return HttpResponseRedirect("/accounts/profile/"+absolute_srch_user_id)
         srch_user = User.objects.filter(username__icontains=q)
         return render(request, 'search.html', {'srch_user': srch_user,
                                                'query': q,
