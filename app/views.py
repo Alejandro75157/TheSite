@@ -133,8 +133,8 @@ def search(request):
         absolute_srch_user = User.objects.filter(username=q)
         for the_user in absolute_srch_user:
             absolute_srch_user_id = the_user.id
-        absolute_srch_user_id = str(absolute_srch_user_id)
         if absolute_srch_user_id > 0:
+            absolute_srch_user_id = str(absolute_srch_user_id)
             return HttpResponseRedirect("/accounts/profile/"+absolute_srch_user_id)
         srch_user = User.objects.filter(username__icontains=q)
         return render(request, 'search.html', {'srch_user': srch_user,
